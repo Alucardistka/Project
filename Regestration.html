@@ -1,0 +1,97 @@
+<html>
+<head>
+<title>Сайт тыры пыры там</title> <!--Титульник сайта, на вкладке сайта будет это название -->
+<meta http-eqiv="content type" content="text/html; charset=windows-1251"> <!-- этот тэг определяет какие кодировки будут использованы для проекта -->
+<script language="javascript"> <!-- определяем, что пишем на js -->
+
+var alpha = /^[()\-.\/@^_а-яА-ЯёЁ\w]+$/; <!-- создаем массив из символов, которые нельзя употреблять, конструкция а-я это включение всех символов из отрезка -->
+function firstnameuser() { <!--функция проверяющая ввод имени -->
+	if (document.feedback.firstname.value.length < 2) { <!-- обращаемся к данным докуиента. документ это наш сайт, feedback как я понимаю вернуть данные, элемента имя, взять из них длинну и сравниваем с двойкой -->
+    document.all.item("firstname_check").innerHTML = "Минимум 2 символа";}
+	else {
+	document.all.item("firstname_check").innerHTML = alpha.test(document.feedback.firstname.value) ? '+' : 'Некорректные символы'; <!-- проверяем на некорректные символы -->
+	}
+	if (document.feedback.firstname.value.length > 15) {
+    document.all.item("firstname_check").innerHTML = "Превышена длина";} <!-- думаю уже понятно что это, ошибки отправляются в ячейку для ошибок --> 
+}
+
+function emailuser() { 
+	if (document.feedback.email.value.length < 2) {
+    document.all.item("email_check").innerHTML = "Минимум 2 символа";} <!-- провека мыла аналогична -->
+	else {
+	document.all.item("email_check").innerHTML = alpha.test(document.feedback.email.value) ? '+' : 'Некорректные символы'; <!--дичь ибо в мыле должна быть собака -->
+	}
+	if (document.feedback.email.value.length > 25) {
+    document.all.item("email_check").innerHTML = "Превышена длина";
+	}
+}
+
+function female_male() {
+if (document.feedback.floor[0].checked) {
+document.all.item("female_male").innerHTML = "+";
+}
+if (document.feedback.floor[1].checked) {
+document.all.item("female_male").innerHTML = "+";
+}
+}
+
+function checkForm() {
+if (document.feedback.firstname_check.value != "+") {
+document.all.item("error_register").innerHTML = "Имя заполнено неверно";
+}
+if (document.feedback.email_check.value != "+") {
+document.all.item("error_register").innerHTML = "E-mail заполнен неверно";
+}
+if (document.feedback.female_male.value != "+") {
+document.all.item("error_register").innerHTML = "Пол не указан";
+}
+if (document.all.item("error_register").innerHTML == " ") return true;
+if (document.all.item("error_register").innerHTML != " ") return false;
+}
+
+</script>
+</head>
+<body bgcolor=white text="grey"> <!-- начинаем создавать "тело" сайта-->
+<table width=1960> <!-- все укомплектовано на нем в виде таблицы без бордера -->
+<tr>
+<td valign=top>
+<ul>
+</ul></td>
+<td>
+<h1>Обратная связь</h1>
+<span id="error_register"> </span> <!--ячейка для ошибки -->
+<table>
+<tr>
+<form action="request.php" method="post" name="feedback" onSubmit="return checkForm()">  <!--создаем форму, с записчью на сервер через пхп, которого нет, азаза -->
+<td><label>Имя:</label></td> <!-- тупые поля -->
+<td><input type="text" name="firstname" onBlur="firstnameuser()"></td>
+<td width="200"><p id="firstname_check"></td>
+<tr>
+<td><label>E-mail</label></td>
+<td><input type="text" name="email" onBlur="emailuser()"></td>
+<td width="200"><p id="email_check"></td>
+</tr>
+<tr>
+<td><label>Пол:</label></td>
+<td><input type="radio" name="floor" value="male" onBlur="female_male()">Мужской<!-- радиобаттон -->
+<input type="radio" name="floor" value="female" onBlur="female_male()">Женский
+</td>
+<td width="200"><p id="female_male"></td>
+</tr>
+<tr>
+<td>
+</tr>
+</table>
+<label>Сообщение:</label>
+<textarea name="message" cols="40" rows="10"></textarea>
+<br>
+<div style="border: 1px double black; padding: 3px; width: 165px;" id="symbols">Не более 450 символов!</div>
+<input type="checkbox" name="news">Присылать уведомления на почту
+<br>
+<input type="submit" value="Подтвердить"> <!-- кнопка подтвердить -->
+</td>
+</form>
+<tr>
+</table>
+</body>
+</html>
